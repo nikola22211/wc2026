@@ -36,5 +36,8 @@ public class Utakmica {
     @Column(name = "datum")
     private LocalDate datum;
 
+    @ManyToOne
+    @JoinColumn(name = "stadion",referencedColumnName = "id")
+    private Stadion stadion;
 
 }
