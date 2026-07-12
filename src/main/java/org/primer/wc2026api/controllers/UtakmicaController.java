@@ -3,6 +3,8 @@ package org.primer.wc2026api.controllers;
 
 import lombok.AllArgsConstructor;
 import org.primer.wc2026api.entities.Utakmica;
+import org.primer.wc2026api.entities.UtakmicaDto;
+import org.primer.wc2026api.mappers.UtakmicaMapper;
 import org.primer.wc2026api.repositories.UtakmicaRepository;
 import org.primer.wc2026api.services.UtakmicaService;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,7 @@ import java.util.List;
 public class UtakmicaController {
 
     private final UtakmicaService utakmicaService;
+    private final UtakmicaMapper utakmicaMapper;
 
     @GetMapping("/sve")
     public ResponseEntity<List<Utakmica>> prikaziSve(){
@@ -29,12 +32,13 @@ public class UtakmicaController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<Utakmica>> sveOdEkipe(@RequestParam(required = false) String ekipa){
+    public ResponseEntity<List<UtakmicaDto>> sveOdEkipe(@RequestParam(required = false) String ekipa){
         List<Utakmica> utakmice = utakmicaService.sveOdEkipe(ekipa);
         if(utakmice.isEmpty()){
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(utakmice);
+        List<UtakmicaDto> utakDto = utakmice.stream().map(utakmicaMapper::toDto).toList();
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(utakDto);
     }
 
 }
