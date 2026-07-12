@@ -13,5 +13,8 @@ public interface UtakmicaRepository extends JpaRepository<Utakmica,Long> {
     @Query(value = "SELECT * FROM wc2026 ORDER BY id",nativeQuery = true)
     List<Utakmica> findAll();
 
+    @Query(value = "SELECT u FROM Utakmica u WHERE u.stadion.id= :stadionId")
+    List<Utakmica> nadjiSveNaStadionu(Long stadionId);
+
 
 }

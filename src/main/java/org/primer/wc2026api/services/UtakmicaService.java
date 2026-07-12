@@ -2,6 +2,8 @@ package org.primer.wc2026api.services;
 
 import lombok.AllArgsConstructor;
 import org.primer.wc2026api.entities.Utakmica;
+import org.primer.wc2026api.entities.UtakmicaDto;
+import org.primer.wc2026api.mappers.UtakmicaMapper;
 import org.primer.wc2026api.repositories.UtakmicaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,7 @@ import java.util.List;
 public class UtakmicaService {
 
     private final UtakmicaRepository utakmicaRepository;
+    private final UtakmicaMapper utakmicaMapper;
 
     public List<Utakmica> prikaziSve(){
 
@@ -35,6 +38,9 @@ public class UtakmicaService {
         return ekipaUtakmice;
     }
 
+    public List<UtakmicaDto> sveNaStadionu(Long stadionId){
+        return utakmicaRepository.nadjiSveNaStadionu(stadionId).stream().map(utakmicaMapper::toDto).toList();
+    }
 
 
 
