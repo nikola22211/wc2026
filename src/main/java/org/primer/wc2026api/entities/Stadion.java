@@ -1,6 +1,7 @@
 package org.primer.wc2026api.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -26,6 +27,7 @@ public class Stadion {
     private Integer kapacitet;
 
     @OneToMany(mappedBy = "stadion")
+    @JsonIgnore
     private List<Utakmica> utakmice;
 
 }

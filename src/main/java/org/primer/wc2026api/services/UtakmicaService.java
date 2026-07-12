@@ -3,9 +3,12 @@ package org.primer.wc2026api.services;
 import lombok.AllArgsConstructor;
 import org.primer.wc2026api.entities.Utakmica;
 import org.primer.wc2026api.repositories.UtakmicaRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,6 +21,18 @@ public class UtakmicaService {
 
         return utakmicaRepository.findAll();
 
+    }
+
+    public List<Utakmica> sveOdEkipe(String ekipa){
+        List<Utakmica> utakmice = utakmicaRepository.findAll();
+        List<Utakmica> ekipaUtakmice = new ArrayList<>();
+
+        for(Utakmica u : utakmice){
+            if(u.getTim1().equals(ekipa) || u.getTim2().equals(ekipa)){
+                ekipaUtakmice.add(u);
+            }
+        }
+        return ekipaUtakmice;
     }
 
 
