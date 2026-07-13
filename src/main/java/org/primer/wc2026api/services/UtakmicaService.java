@@ -42,8 +42,20 @@ public class UtakmicaService {
         return utakmicaRepository.nadjiSveNaStadionu(stadionId).stream().map(utakmicaMapper::toDto).toList();
     }
 
-
-
+    public List<UtakmicaDto> odredjenTip(Character c) {
+        List<Utakmica> utakmice = utakmicaRepository.findAll();
+        List<Utakmica> nadjene = new ArrayList<>();
+        for (Utakmica u : utakmice) {
+            if (u.getRezultat().charAt(0) > u.getRezultat().charAt(2) && c == '1') {
+                nadjene.add(u);
+            } else if (u.getRezultat().charAt(0) < u.getRezultat().charAt(2) && c == '2') {
+                nadjene.add(u);
+            } else if (u.getRezultat().charAt(0) == u.getRezultat().charAt(2) && (c == 'x' || c == 'X')) {
+                nadjene.add(u);
+            }
+        }
+        return nadjene.stream().map(utakmicaMapper::toDto).toList();
+    }
 
 
 }

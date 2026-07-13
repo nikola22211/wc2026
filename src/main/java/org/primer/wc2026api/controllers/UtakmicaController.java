@@ -44,4 +44,13 @@ public class UtakmicaController {
 
     }
 
+    @GetMapping("tip/{tip}")
+    public ResponseEntity<List<UtakmicaDto>> sveOdredjenogTipa(@PathVariable(name = "tip") Character c){
+        List<UtakmicaDto> utakmice = utakmicaService.odredjenTip(c);
+        if(utakmice.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(utakmice);
+    }
+
 }
