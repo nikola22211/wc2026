@@ -1,10 +1,12 @@
 package org.primer.wc2026api.services;
 
 import lombok.AllArgsConstructor;
+import org.primer.wc2026api.entities.UpdateUtakmicaRequest;
 import org.primer.wc2026api.entities.Utakmica;
 import org.primer.wc2026api.entities.UtakmicaDto;
 import org.primer.wc2026api.mappers.UtakmicaMapper;
 import org.primer.wc2026api.repositories.UtakmicaRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,6 +58,24 @@ public class UtakmicaService {
         }
         return nadjene.stream().map(utakmicaMapper::toDto).toList();
     }
+
+
+    public ResponseEntity<UtakmicaDto> updateUtakmica(Long id,UpdateUtakmicaRequest request){
+        var utakmica = utakmicaRepository.findById(id).orElse(null);
+        if(utakmica == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        System.out.println(request.getTim1());
+        System.out.println(request.getTim2());
+        System.out.println(request.getRezultat());
+
+        utakmicaMapper.update(request,utakmica);
+        utakmicaRepository.save(utakmica);
+
+        return ResponseEntity.status(HttpStatus.OK).body(utakmicaMapper.toDto(utakmica));
+
+    }
+
 
 
 }

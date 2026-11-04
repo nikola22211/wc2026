@@ -26,8 +26,8 @@ public class Stadion {
     @Column(name = "kapacitet")
     private Integer kapacitet;
 
-    @OneToMany(mappedBy = "stadion")
-    @JsonIgnore
-    private List<Utakmica> utakmice;
+//    @OneToMany(mappedBy = "stadion")
+//    @JsonIgnore
+//    private List<Utakmica> utakmice;
 
 }

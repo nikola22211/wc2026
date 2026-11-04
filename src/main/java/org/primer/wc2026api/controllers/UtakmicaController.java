@@ -2,6 +2,7 @@ package org.primer.wc2026api.controllers;
 
 
 import lombok.AllArgsConstructor;
+import org.primer.wc2026api.entities.UpdateUtakmicaRequest;
 import org.primer.wc2026api.entities.Utakmica;
 import org.primer.wc2026api.entities.UtakmicaDto;
 import org.primer.wc2026api.mappers.UtakmicaMapper;
@@ -24,7 +25,7 @@ public class UtakmicaController {
     @GetMapping("/sve")
     public ResponseEntity<List<Utakmica>> prikaziSve(){
 
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(utakmicaService.prikaziSve());
+        return ResponseEntity.status(HttpStatus.OK).body(utakmicaService.prikaziSve());
 
     }
 
@@ -35,12 +36,12 @@ public class UtakmicaController {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }
         List<UtakmicaDto> utakDto = utakmice.stream().map(utakmicaMapper::toDto).toList();
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(utakDto);
+        return ResponseEntity.status(HttpStatus.OK).body(utakDto);
     }
 
     @GetMapping("naStadionu/{stadionId}")
     public ResponseEntity<List<UtakmicaDto>> sveNaStadionu(@PathVariable(name = "stadionId") Long stadionId){
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(utakmicaService.sveNaStadionu(stadionId));
+        return ResponseEntity.status(HttpStatus.OK).body(utakmicaService.sveNaStadionu(stadionId));
 
     }
 
@@ -50,7 +51,14 @@ public class UtakmicaController {
         if(utakmice.isEmpty()){
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(utakmice);
+        return ResponseEntity.status(HttpStatus.OK).body(utakmice);
+    }
+
+    @PutMapping("/put/{id}")
+    public ResponseEntity<UtakmicaDto> updateUtakmica(@PathVariable(name = "id") Long id, @RequestBody UpdateUtakmicaRequest request){
+
+        return utakmicaService.updateUtakmica(id,request);
+
     }
 
 }

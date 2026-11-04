@@ -1,0 +1,14 @@
+body {
+  background-color: rgb(225, 199, 135);
+}
+
+.datum {
+  margin-left: 40px;
+  color: brown;
+}
+.faza {
+  font-size: 0.8rem;
+}
+.strong {
+  font-weight: bold;
+}
